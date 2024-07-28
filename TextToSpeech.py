@@ -5,14 +5,11 @@ import boto3
 # Create a Polly client
 polly = boto3.client('polly', verify=False)
 
-# Set the text to be synthesized
 text = "Hello, This is text to voice demo."
 
-# Set the output format and voice ID
 output_format = "mp3"
 voice_id = "Joanna"
 
-# Call the synthesize_speech method
 response = polly.synthesize_speech(
     Text=text,
     OutputFormat=output_format,
@@ -28,3 +25,6 @@ print(f"Speech saved to {file_name}")
 
 if sys.platform == "win32":
     os.startfile(file_name)
+else:
+    opener = "open" if sys.platform == "darwin" else "xdg-open"
+    subprocess.call([opener, output])
